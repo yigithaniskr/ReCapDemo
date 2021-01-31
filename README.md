@@ -1,4 +1,6 @@
 ## ReCapDemo
+ÖDEV 2
+
 Yepyeni bir proje oluşturunuz. **Adı ReCapDemo** olacak. (Tekrar ve geliştirme projesi)
 
 **Entities, DataAccess, Business ve Console katmanlarını** oluşturunuz.

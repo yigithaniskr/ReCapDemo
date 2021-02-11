@@ -37,7 +37,7 @@ namespace Business.Concrete
             }
             else
             {
-                throw new Exception(Messages.DescriptionInvalid);
+                return new ErrorResult(Messages.DescriptionInvalid);
             }
         }
 

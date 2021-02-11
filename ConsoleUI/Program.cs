@@ -10,25 +10,35 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //BrandTest();
-            //ColorTest();
+            //BrandTest();                         
+            //ColorTest();          
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails())
+
+            var result = carManager.GetCarDetails();
+
+            if (result.Success == true)
             {
-                Console.WriteLine("CarId: {0} BrandName: {1} ColorName: {2} DailyPrice: {3}", car.CarId, car.BrandName, car.ColorName, car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine("CarId: {0} BrandName: {1} ColorName: {2} DailyPrice: {3}", car.CarId, car.BrandName, car.ColorName, car.DailyPrice);
+                }
             }
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            brandManager.Add(new Brand { BrandName = "Toyota" });
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void ColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.ColorName);
             }
-            Console.WriteLine(colorManager.GetById(1).ColorName);
+            Console.WriteLine(colorManager.GetById(1).Data);
             colorManager.Add(new Color { ColorName = "Kırmızı" });
             colorManager.Delete(new Color { ColorId = 1002 });
             colorManager.Update(new Color { ColorId = 2, ColorName = "Gri" });
@@ -37,14 +47,16 @@ namespace ConsoleUI
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.BrandName);
             }
-            Console.WriteLine(brandManager.GetById(1).BrandName);
+            Console.WriteLine(brandManager.GetById(1).Data);
             brandManager.Add(new Brand { BrandName = "Toyota" });
             brandManager.Delete(new Brand { BrandId = 1003 });
             brandManager.Update(new Brand { BrandId = 2, BrandName = "Fiat" });
+            
         }
     }
 }

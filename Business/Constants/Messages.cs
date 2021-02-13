@@ -11,5 +11,7 @@ namespace Business.Constants
         public static string DescriptionInvalid = "Arabanın Açıklaması Minimum 2'den Karakter Olmalıdır";
         public static string MaintenanceTime ="Sistem Bakımda";
         public static string CarsListed = "Araçlar Listelendi";
+        public static string RentalReturnDateInValid = "Araba henüz teslim edilmedi.";
+        public static string RentalAdded = "Kiralama başarılı";
     }
 }

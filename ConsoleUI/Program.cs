@@ -12,6 +12,48 @@ namespace ConsoleUI
         {
             //BrandTest();                         
             //ColorTest();          
+            //CarTest();
+            //UserTest();
+            //CustomesTest();
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental
+            {
+                CarId = 4004,
+                CustomerId = 3,
+                RentDate = new DateTime(2021, 2, 13),
+                ReturnDate = new DateTime(2021, 2, 23)
+            });
+
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
+        }
+
+        private static void CustomesTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Customer { UserId = 2, CompanyName = "Özden Ticaret" });
+            customerManager.Add(new Customer { UserId = 4, CompanyName = "Kaya Elektrik" });
+            customerManager.Update(new Customer { CustomerId = 1, UserId = 1, CompanyName = "Işıker Company" });
+        }
+
+        private static void UserTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { FirstName = "Ali", LastName = "Yılmaz", Email = "aliyilmaz@gmail.com", Password = "12345" });
+            userManager.Add(new User { FirstName = "Uğur", LastName = "Çetin", Email = "ucetin@gmail.com", Password = "54321" });
+            userManager.Update(new User { UserId = 3, FirstName = "Hakan", LastName = "Kepez", Email = "hknkpz@hotmail.com", Password = "123" });
+        }
+
+        private static void CarTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
 
             var result = carManager.GetCarDetails();
@@ -27,7 +69,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(result.Message);
             }
-
         }
 
         private static void ColorTest()

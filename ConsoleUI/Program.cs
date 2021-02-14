@@ -21,7 +21,7 @@ namespace ConsoleUI
                 CarId = 4004,
                 CustomerId = 3,
                 RentDate = new DateTime(2021, 2, 13),
-                ReturnDate = new DateTime(2021, 2, 23)
+                ReturnDate = null
             });
 
             if (result.Success == true)

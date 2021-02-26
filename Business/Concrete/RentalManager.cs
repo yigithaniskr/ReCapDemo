@@ -24,16 +24,17 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
-            foreach (var rentals in result)
-            {
-                if (rentals.ReturnDate == null || rentals.RentDate > rentals.ReturnDate)
-                {
-                    return new ErrorResult(Messages.RentalReturnDateInValid);
-                }
+            var check = CheckReturnDate(rental.CarId);
+            if (!check.Success)
+            { 
+                return new ErrorResult(Messages.RentalReturnDateInValid); 
             }
-            _rentalDal.Add(rental);
-            return new SuccessResult(Messages.RentalAdded);
+
+            else
+            {
+                _rentalDal.Add(rental);
+                return new SuccessResult(Messages.RentalAdded);
+            }
         }
 
         
@@ -59,6 +60,14 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
             return new SuccessResult();
+        }
+        public IResult CheckReturnDate(int id)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == id && r.ReturnDate == null);
+            if (result.Count == 0)
+            { return new SuccessResult(); }
+            else
+            { return new ErrorResult(); }
         }
     }
 }

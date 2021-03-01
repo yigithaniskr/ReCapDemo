@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
@@ -20,6 +21,8 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("brand.add,admin")]
+
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
@@ -32,6 +35,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+
         public IDataResult<List<Brand>> GetAll()
         {
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
@@ -43,6 +47,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("brand.add,admin")]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);

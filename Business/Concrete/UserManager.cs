@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
@@ -32,7 +33,6 @@ namespace Business.Concrete
             _userdal.Delete(user);
             return new SuccessResult();
         }
-
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userdal.GetAll());
@@ -42,12 +42,10 @@ namespace Business.Concrete
         {
             return (_userdal.Get(u => u.Email == email));
         }
-
         public IDataResult<User> GetById(int userId)
         {
             return new SuccessDataResult<User>(_userdal.Get(u => u.UserId == userId));
         }
-
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
             return new SuccessDataResult<List<OperationClaim>>(_userdal.GetClaims(user));
